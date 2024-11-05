@@ -44,7 +44,7 @@ const About = () => {
             className="relative"
           >
             <img
-              src="/1.jpg"
+              src="D:\website\public\1.jpg"
               alt="Shri Harish Chand Agarwal"
               className="rounded-lg shadow-xl w-full object-cover h-[600px] object-top"
             />
@@ -55,7 +55,7 @@ const About = () => {
               viewport={{ once: true }}
               className="absolute -bottom-6 -right-6 bg-dark-moss-green p-4 rounded-lg shadow-xl w-20 h-20"
             >
-              <img src='/logo.png' className='max-w-full max-h-full'></img>
+              <img src='D:\website\public\logo.png' className='max-w-full max-h-full' />
             </motion.div>
           </motion.div>
 
