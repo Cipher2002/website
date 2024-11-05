@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay } from 'date-fns';
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, startOfWeek, endOfWeek } from 'date-fns';
 import { Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Define appointment types with their duration and selected state
@@ -31,10 +31,15 @@ const Booking = () => {
   const handlePreviousMonth = () => setCurrentDate(subMonths(currentDate, 1));
   const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
 
-  // Generate the days of the current month
+  // Generate the days of the current month, including empty days at the beginning for alignment
+  const startOfCurrentMonth = startOfMonth(currentDate);
+  const endOfCurrentMonth = endOfMonth(currentDate);
+  const startOfCalendar = startOfWeek(startOfCurrentMonth, { weekStartsOn: 0 }); // Start the week on Sunday
+  const endOfCalendar = endOfWeek(endOfCurrentMonth);
+
   const days = eachDayOfInterval({
-    start: startOfMonth(currentDate),
-    end: endOfMonth(currentDate),
+    start: startOfCalendar,
+    end: endOfCalendar,
   });
 
   // Handle the submission of the appointment form
@@ -47,6 +52,14 @@ const Booking = () => {
       time: selectedTime,
       ...formData,
     });
+  };
+
+  const handleCurrentMonthClick = () => {
+    const today = new Date();
+    if (!isSameMonth(today, currentDate)) {
+      setCurrentDate(today);
+      setSelectedDate(today); // Optionally select today if it's not already selected
+    }
   };
 
   return (
@@ -65,9 +78,8 @@ const Booking = () => {
           onSubmit={handleSubmit}
           className="space-y-4 max-w-full mx-auto"
         >
-          {/* Flex container for input fields */}
           <div className="flex flex-col lg:flex-row justify-center items-start gap-8 p-8 rounded-xl w-full">
-            <div className="flex-1"> {/* Each input takes equal space */}
+            <div className="flex-1">
               <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                 First Name
               </label>
@@ -75,12 +87,12 @@ const Booking = () => {
                 type="text"
                 id="first-name"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
+                className="mt-1 block w-full rounded-md shadow-sm focus:border-earth-yellow py-2 px-3"
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
               />
             </div>
-            <div className="flex-1"> {/* Each input takes equal space */}
+            <div className="flex-1">
               <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
                 Last Name
               </label>
@@ -88,12 +100,12 @@ const Booking = () => {
                 type="text"
                 id="last-name"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
+                className="mt-1 block w-full rounded-md shadow-sm focus:border-earth-yellow py-2 px-3"
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
               />
             </div>
-            <div className="flex-1"> {/* Each input takes equal space */}
+            <div className="flex-1">
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
                 Phone Number
               </label>
@@ -101,13 +113,12 @@ const Booking = () => {
                 type="tel"
                 id="phone"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
+                className="mt-1 block w-full rounded-md shadow-sm focus:border-earth-yellow py-2 px-3"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               />
             </div>
           </div>
-          
         </motion.form>
 
         {/* Appointment Types */}
@@ -137,9 +148,9 @@ const Booking = () => {
         </div>
 
         {/* Centering the Calendar and Time Slots */}
-        <div className="flex flex-col lg:flex-row justify-center items-start gap-8 p-8 rounded-xl max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row justify-center items-start gap-8 p-8 rounded-xl max-w-7xl mx-auto user-select-none">
           {/* Calendar Section */}
-          <div className="mb-8 flex-1">
+          <div className="mb-8 flex-1 user-select-none">
             <h2 className="text-xl text-pakistan-green font-semibold mb-4">Select date</h2>
             <div className="bg-white rounded-xl">
               <div className="flex text-pakistan-green items-center justify-between mb-4">
@@ -150,7 +161,10 @@ const Booking = () => {
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                <h3 className="text-lg font-medium">
+                <h3 
+                  className="text-lg font-medium cursor-pointer"
+                  onClick={handleCurrentMonthClick} // Reset to current date
+                >
                   {format(currentDate, 'MMMM yyyy')}
                 </h3>
                 <button
@@ -172,16 +186,21 @@ const Booking = () => {
                 {days.map((day) => (
                   <motion.button
                     key={day.toISOString()}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedDate(day)}
-                    className={`p-2 rounded-full ${
-                      !isSameMonth(day, currentDate) && 'text-pakistan-green'
-                    } ${
-                      selectedDate && isSameDay(day, selectedDate)
-                        ? 'bg-tigers-eye text-cornsilk'
-                        : 'hover:bg-earth-yellow hover:text-cornsilk'
-                    }`}
+                    whileHover={!isSameMonth(day, currentDate) ? undefined : { scale: 1.1 }}
+                    whileTap={!isSameMonth(day, currentDate) ? undefined : { scale: 0.95 }}
+                    onClick={() => isSameMonth(day, currentDate) && setSelectedDate(day)}
+                      className={`p-2 rounded-full ${
+                        !isSameMonth(day, currentDate) 
+                          ? 'text-white cursor-default' // Unclickable and white text for non-current month days
+                          : 'hover:bg-earth-yellow hover:text-cornsilk'
+                      } ${
+                        selectedDate && isSameDay(day, selectedDate)
+                          ? 'bg-tigers-eye text-cornsilk'
+                          : selectedDate === null && isSameDay(day, new Date()) // Highlight the current date only if no date is selected
+                            ? 'bg-tigers-eye text-cornsilk font-bold' // Highlight for the current date
+                            : 'text-pakistan-green' // Default color for current month days
+                      }`}
+                      disabled={!isSameMonth(day, currentDate)} // Disable button for non-current month days
                   >
                     {format(day, 'd')}
                   </motion.button>
