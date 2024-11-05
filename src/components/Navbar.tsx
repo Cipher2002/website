@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, Users, Briefcase, Calendar, Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -12,19 +13,26 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
     { title: 'HOME', icon: Home, href: '#' },
     { title: 'ABOUT US', icon: Users, href: '#about' },
     { title: 'SERVICES', icon: Briefcase, href: '#services' },
-    { title: 'BOOK AN APPOINTMENT', icon: Calendar, href: '#book' },
   ];
+
+  const bookingItem = {
+    title: 'BOOK AN APPOINTMENT',
+    icon: Calendar,
+    href: '/booking',
+  };
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-pakistan-green shadow-md z-50">
+    <nav className="fixed top-0 w-full bg-pakistan-green shadow-md z-50" role="navigation">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <motion.div
@@ -32,8 +40,8 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-1"
           >
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="" className='w-12 h-12'/>
-            <span className="text-2xl font-semi-bold text-cornsilk">Vastushodhan</span>
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Vastushodhan Logo" className='w-12 h-12' />
+            <span className="text-2xl font-semibold text-cornsilk">Vastushodhan</span>
           </motion.div>
 
           {/* Desktop Menu */}
@@ -51,14 +59,26 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                 <span>{item.title}</span>
               </motion.button>
             ))}
+            {/* Booking Appointment Link */}
+            <Link to={bookingItem.href}>
+              <motion.button
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navItems.length * 0.1 }}
+                className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-cornsilk hover:text-pakistan-green hover:bg-earth-yellow rounded-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              >
+                <bookingItem.icon className="h-4 w-4" />
+                <span>{bookingItem.title}</span>
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-cornsilk hover:text-pakistan-green
-              "
+              className="text-cornsilk hover:text-pakistan-green"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -84,6 +104,16 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
               <span>{item.title}</span>
             </button>
           ))}
+          {/* Booking Appointment Link in Mobile Menu */}
+          <Link to={bookingItem.href}>
+            <button
+              className="flex items-center space-x-2 px-4 py-3 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-50 w-full text-left"
+              onClick={() => setIsMenuOpen(false)} // Close the menu after clicking
+            >
+              <bookingItem.icon className="h-4 w-4" />
+              <span>{bookingItem.title}</span>
+            </button>
+          </Link>
         </motion.div>
       )}
     </nav>
