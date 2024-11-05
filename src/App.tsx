@@ -20,7 +20,7 @@ function App() {
   };
 
   return (
-    <Router basename="/website">
+    <Router basename="/website/">
       <div className="max-w-screen min-h-screen bg-cornsilk">
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
         <Routes>
