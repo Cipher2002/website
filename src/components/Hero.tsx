@@ -3,7 +3,7 @@ import { Compass } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="relative h-[600px] overflow-hidden">
+    <section id="hero" className="relative h-[600px]">
       <div className="absolute inset-0 bg-dark-moss-green opacity-90"></div>
       <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
         <div className="grid md:grid-cols-2 gap-8 items-center">

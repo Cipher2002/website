@@ -33,7 +33,7 @@ const VastuInfo = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-earth-yellow to-tigers-eye">
+    <section id='vastuinfo' className="py-20 bg-gradient-to-b from-earth-yellow to-tigers-eye">
       <div className="max-w-7xl mx-auto px-4">
         {/* Introduction */}
         <motion.div {...fadeInUp} className="text-center mb-16">

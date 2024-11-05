@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, Users, Briefcase, Calendar, Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -10,24 +10,41 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   const navItems = [
-    { title: 'HOME', icon: Home, href: '#' },
+    { title: 'HOME', icon: Home, href: '/website/' },
     { title: 'ABOUT US', icon: Users, href: '#about' },
-    { title: 'SERVICES', icon: Briefcase, href: '#services' },
+    { title: 'SERVICES', icon: Briefcase, href: '#vastuinfo' },
   ];
 
   const bookingItem = {
     title: 'BOOK AN APPOINTMENT',
     icon: Calendar,
-    href: '/booking',
+    href: '/website/booking',
   };
 
-  const handleNavClick = (href: string) => {
+  const location = useLocation();
+
+  const handleNavClick = (href: string | undefined) => {
     setIsMenuOpen(false);
-    if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+
+    if (!href) {
+      window.location.reload();
+    } else if (href.startsWith('#')) {
+      if (location.pathname === '/website/booking') {
+        window.location.replace('/website/');
+        setTimeout(() => {
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 0);
+      } else {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
       }
+    } else {
+      window.location.replace(href);
     }
   };
 
@@ -38,7 +55,10 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center space-x-1"
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => {
+              window.location.replace('/website/');
+            }}
           >
             <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Vastushodhan Logo" className='w-12 h-12' />
             <span className="text-2xl font-semibold text-cornsilk">Vastushodhan</span>
@@ -60,7 +80,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
               </motion.button>
             ))}
             {/* Booking Appointment Link */}
-            <Link to={bookingItem.href}>
+            <button onClick={() => handleNavClick(bookingItem.href)}>
               <motion.button
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -70,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                 <bookingItem.icon className="h-4 w-4" />
                 <span>{bookingItem.title}</span>
               </motion.button>
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -105,7 +125,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
             </button>
           ))}
           {/* Booking Appointment Link in Mobile Menu */}
-          <Link to={bookingItem.href}>
+          <button onClick={() => handleNavClick(bookingItem.href)}>
             <button
               className="flex items-center space-x-2 px-4 py-3 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-50 w-full text-left"
               onClick={() => setIsMenuOpen(false)} // Close the menu after clicking
@@ -113,7 +133,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
               <bookingItem.icon className="h-4 w-4" />
               <span>{bookingItem.title}</span>
             </button>
-          </Link>
+          </button>
         </motion.div>
       )}
     </nav>
