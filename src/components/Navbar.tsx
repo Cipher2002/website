@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, Users, Briefcase, Calendar, Menu, X } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -21,24 +21,24 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
     href: '/website/booking',
   };
 
-  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
 
     if (href === '/website/') {
-      window.location.replace(href);
-    } else if (href?.startsWith('#')) {
-      if (location.pathname === '/booking') {
-        window.location.replace('/website/');
-      } else {
-        const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+      // Handle homepage redirection
+      window.location.reload(); // Refresh to ensure the app is fully loaded
+    } else if (href.startsWith('#')) {
+      // Handle smooth scrolling for internal sections
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      window.location.replace(href);
+      // Navigate to booking or other pages
+      navigate(href);
+      window.location.reload(); // Refresh after navigation
     }
   };
 
@@ -50,9 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2 cursor-pointer"
-            onClick={() => {
-              window.location.href = '/website/'; // Redirect to homepage on logo click
-            }}
+            onClick={() => handleNavClick('/website/')}
           >
             <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Vastushodhan Logo" className='w-12 h-12' />
             <span className="text-2xl font-semibold text-cornsilk">Vastushodhan</span>
