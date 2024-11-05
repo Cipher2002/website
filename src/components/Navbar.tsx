@@ -23,20 +23,14 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
 
   const location = useLocation();
 
-  const handleNavClick = (href: string | undefined) => {
+  const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
 
-    if (!href) {
-      window.location.reload();
-    } else if (href.startsWith('#')) {
-      if (location.pathname === '/website/booking') {
+    if (href === '/website/') {
+      window.location.replace(href);
+    } else if (href?.startsWith('#')) {
+      if (location.pathname === '/booking') {
         window.location.replace('/website/');
-        setTimeout(() => {
-          const element = document.querySelector(href);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 0);
       } else {
         const element = document.querySelector(href);
         if (element) {
@@ -57,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2 cursor-pointer"
             onClick={() => {
-              window.location.replace('/website/');
+              window.location.href = '/website/'; // Redirect to homepage on logo click
             }}
           >
             <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Vastushodhan Logo" className='w-12 h-12' />
