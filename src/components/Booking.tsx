@@ -58,6 +58,58 @@ const Booking = () => {
       >
         <h1 className="text-3xl font-bold text-pakistan-green mb-8 text-center">Book an appointment</h1>
 
+        {/* Contact Form */}
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          onSubmit={handleSubmit}
+          className="space-y-4 max-w-full mx-auto"
+        >
+          {/* Flex container for input fields */}
+          <div className="flex flex-col lg:flex-row justify-center items-start gap-8 p-8 rounded-xl w-full">
+            <div className="flex-1"> {/* Each input takes equal space */}
+              <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                First Name
+              </label>
+              <input
+                type="text"
+                id="first-name"
+                required
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+              />
+            </div>
+            <div className="flex-1"> {/* Each input takes equal space */}
+              <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                Last Name
+              </label>
+              <input
+                type="text"
+                id="last-name"
+                required
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
+                value={formData.lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+              />
+            </div>
+            <div className="flex-1"> {/* Each input takes equal space */}
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                required
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              />
+            </div>
+          </div>
+          
+        </motion.form>
+
         {/* Appointment Types */}
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-4 text-pakistan-green">Select appointment type</h2>
@@ -170,60 +222,6 @@ const Booking = () => {
         >
           Confirm Booking
         </motion.button>
-
-        {/* Contact Form */}
-        {selectedTime && (
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            onSubmit={handleSubmit}
-            className="space-y-4 max-w-md mx-auto"
-          >
-            {/* Flex container for input fields */}
-            <div className="flex flex-col lg:flex-row justify-center items-start gap-8 p-8 rounded-xl max-w-7xl mx-auto"> {/* Adjusted for side-by-side layout */}
-              <div className="flex-1"> {/* Each input takes equal space */}
-                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="first-name"
-                  required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                />
-              </div>
-              <div className="flex-1"> {/* Each input takes equal space */}
-                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="last-name"
-                  required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                />
-              </div>
-              <div className="flex-1"> {/* Each input takes equal space */}
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-3" // Increased padding for a larger input
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                />
-              </div>
-            </div>
-            
-          </motion.form>
-        )}
 
       </motion.div>
     </div>
