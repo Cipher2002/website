@@ -32,7 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-1"
           >
-            <img src="D:\website\public\logo.png" alt="" className='w-12 h-12'/>
+            <img src="/logo.png" alt="" className='w-12 h-12'/>
             <span className="text-2xl font-semi-bold text-cornsilk">Vastushodhan</span>
           </motion.div>
 
