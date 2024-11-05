@@ -161,6 +161,16 @@ const Booking = () => {
           </div>
         </div>
 
+        {/* Submit Button Below Inputs */}
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          type="submit"
+          className="w-full bg-tigers-eye text-cornsilk py-3 rounded-xl font-semibold shadow-lg transition-colors"
+        >
+          Confirm Booking
+        </motion.button>
+
         {/* Contact Form */}
         {selectedTime && (
           <motion.form
@@ -212,15 +222,6 @@ const Booking = () => {
               </div>
             </div>
             
-            {/* Submit Button Below Inputs */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              className="w-full bg-tigers-eye text-cornsilk py-3 rounded-xl font-semibold shadow-lg transition-colors"
-            >
-              Confirm Booking
-            </motion.button>
           </motion.form>
         )}
 
