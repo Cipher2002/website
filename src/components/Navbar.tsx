@@ -10,7 +10,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   const navItems = [
-    { title: 'HOME', icon: Home, href: '/website/' },
+    { title: 'HOME', icon: Home, href: '/' },
     { title: 'ABOUT US', icon: Users, href: '#about' },
     { title: 'SERVICES', icon: Briefcase, href: '#vastuinfo' },
   ];
@@ -18,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   const bookingItem = {
     title: 'BOOK AN APPOINTMENT',
     icon: Calendar,
-    href: '/website/booking',
+    href: '/booking',
   };
 
   const navigate = useNavigate();
