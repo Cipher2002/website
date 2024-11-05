@@ -38,7 +38,6 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
     } else {
       // Navigate to booking or other pages
       navigate(href);
-      window.location.reload(); // Refresh after navigation
     }
   };
 
