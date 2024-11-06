@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { Compass } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="hero" className="relative h-[600px]">
       <div className="absolute inset-0 bg-dark-moss-green opacity-90"></div>
@@ -23,6 +26,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-cornsilk text-pakistan-green px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+              onClick={() => navigate('/booking')}
             >
               Book a Consultation
             </motion.button>

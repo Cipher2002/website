@@ -6,6 +6,7 @@ import About from './components/About';
 import VastuInfo from './components/VastuInfo';
 import WhatsAppIcon from "./components/WhatsAppIcon";
 import Booking from './components/Booking';
+import Services from './components/Services'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,6 +36,7 @@ function App() {
               </main>
             </>
           } />
+          <Route path='/services' element={<Services />} />
           <Route path="/booking" element={<Booking />} />
         </Routes>
         <WhatsAppIcon

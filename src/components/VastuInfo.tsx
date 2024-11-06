@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   Wind, 
@@ -9,8 +10,11 @@ import {
   Heart,
   TrendingUp
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const VastuInfo = () => {
+  const navigate = useNavigate();
+  
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -87,6 +91,7 @@ const VastuInfo = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-cornsilk text-pakistan-green px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+            onClick={() => navigate('/services')}
           >
             Explore Our Services
           </motion.button>
