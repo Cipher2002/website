@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import VastuInfo from './components/VastuInfo';
 import WhatsAppIcon from "./components/WhatsAppIcon";
 import Booking from './components/Booking';
-import Services from './components/Services'
+import Services from './components/Services';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    // Scroll to the top when the component mounts
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []); // Empty dependency array ensures this runs only on initial render
 
   const handleWhatsApp = () => {
     window.open("https://wa.me/+918368532837", "_blank");
@@ -22,6 +18,7 @@ function App() {
 
   return (
     <Router basename="/website/">
+      <ScrollToTop />
       <div className="max-w-screen min-h-screen bg-cornsilk">
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
         <Routes>
