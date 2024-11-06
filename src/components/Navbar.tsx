@@ -54,7 +54,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
             className="flex items-center space-x-2 cursor-pointer"
             onClick={() => handleNavClick('/')}
           >
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Vastushodhan Logo" className="w-12 h-12" />
+            <img src='/logo.png' alt="Vastushodhan Logo" className="w-12 h-12" />
             <span className="text-2xl font-semibold text-cornsilk">Vastushodhan</span>
           </motion.div>
 
