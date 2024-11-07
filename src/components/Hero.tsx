@@ -7,7 +7,13 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative h-[600px]">
-      <div className="absolute inset-0 bg-dark-moss-green opacity-90"></div>
+            <div className="absolute inset-0 z-0 bg-dark-moss-green">
+            <img
+              src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80"
+              alt="Peaceful home interior"
+              className="w-full h-full object-cover opacity-40"
+            />
+          </div>
       <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <motion.div
@@ -25,7 +31,7 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-cornsilk text-pakistan-green px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
+              className="bg-cornsilk text-pakistan-green px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow hover:bg-earth-yellow"
               onClick={() => navigate('/booking')}
             >
               Book a Consultation
@@ -38,13 +44,6 @@ const Hero = () => {
             className="hidden md:flex justify-center"
           >
             <div className="relative w-80 h-80">
-              <motion.div
-                animate={{ rotate: 1080 }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0"
-              >
-                <Compass className="w-full h-full text-cornsilk opacity-60" />
-              </motion.div>
             </div>
           </motion.div>
         </div>

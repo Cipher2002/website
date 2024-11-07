@@ -45,7 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-pakistan-green shadow-md z-50" role="navigation">
+    <nav className="fixed top-0 w-full bg-pakistan-green shadow-md z-50 backdrop-blur-sm" role="navigation">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <motion.div

@@ -133,7 +133,7 @@ const Services = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-earth-yellow rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow"
+              className="bg-earth-yellow rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300-"
             >
               <div className="relative h-64">
                 <img
