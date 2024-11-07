@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, startOfWeek, endOfWeek } from 'date-fns';
 import { Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Define appointment types with their duration and selected state
 const appointmentTypes = [
-  { id: 1, title: 'Residential Vastu', duration: '1 hour', selected: true },
-  { id: 2, title: 'Commercial Vastu', duration: '1 hour', selected: false },
-  { id: 3, title: 'Office Premises', duration: '1 hour', selected: false },
-  { id: 4, title: 'New Property Vastu', duration: '1 hour', selected: false },
+  { id: '1', title: 'Residential Vastu', duration: '1 hour' },
+  { id: '2', title: 'Commercial Vastu', duration: '1 hour' },
+  { id: '3', title: 'Office Premises Vastu', duration: '1 hour' },
+  { id: '4', title: 'New Property Vastu', duration: '1 hour' },
 ];
 
 // Define available time slots for appointments
@@ -26,6 +26,16 @@ const Booking = () => {
     lastName: '',
     phone: '',
   });
+
+  useEffect(() => {
+    const storedServiceId = localStorage.getItem('selectedServiceType');
+    if (storedServiceId) {
+      const matchedType = appointmentTypes.find((type) => type.id === storedServiceId);
+      if (matchedType) {
+        setSelectedType(matchedType);
+      }
+    }
+  }, []);
 
   // Change the displayed month in the calendar
   const handlePreviousMonth = () => setCurrentDate(subMonths(currentDate, 1));
@@ -134,7 +144,7 @@ const Booking = () => {
                 className={`p-4 rounded-xl text-left transition-colors ${
                   selectedType.id === type.id
                     ? 'bg-tigers-eye text-cornsilk'
-                    : 'bg-gray-50 text-pakistan-green  hover:bg-earth-yellow hover:text-cornsilk'
+                    : 'bg-gray-50 text-pakistan-green hover:bg-earth-yellow hover:text-cornsilk'
                 }`}
               >
                 <div className="font-semibold">{type.title}</div>
