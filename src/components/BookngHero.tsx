@@ -35,7 +35,7 @@ const BookingHero = () => {
             <div className="inline-block">
               <div className="flex items-center space-x-2 bg-purple-100 rounded-full px-4 py-1">
                 <Clock3 className="w-4 h-4 text-purple-600" />
-                <span className="text-sm text-purple-600 font-medium">30-minute consultation</span>
+                <span className="text-sm text-purple-600 font-medium">1 hour consultation</span>
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
@@ -94,7 +94,7 @@ const BookingHero = () => {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-white/80">
                         <Clock className="w-4 h-4" />
-                        <span className="text-sm">Detailed 30-minute session</span>
+                        <span className="text-sm">Detailed 1 hour session</span>
                       </div>
                       <div className="flex items-center space-x-2 text-white/80">
                         <FileText className="w-4 h-4" />
