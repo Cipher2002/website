@@ -11,7 +11,7 @@ export const ImportantNotice = () => {
       <div className="flex items-start">
         <AlertTriangle className="w-6 h-6 text-red-500 mr-4 flex-shrink-0 mt-1" />
         <div>
-          <h3 className="text-lg font-bold text-red-700 mb-2">⚠️ Important Notice</h3>
+          <h3 className="text-lg font-bold text-red-700 mb-2">Important Notice</h3>
           <p className="text-red-700 font-bold mb-4">
             Vastushodhan operates as a REMOTE-ONLY consultation service.
           </p>
