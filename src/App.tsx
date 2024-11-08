@@ -38,7 +38,7 @@ function App() {
         </Routes>
         <WhatsAppIcon
           onClick={handleWhatsApp}
-          className="fixed bottom-4 right-4 w-12 h-12 transition-transform transform hover:scale-110 hover:opacity-80 z-50"
+          className="fixed bottom-4 right-4 w-12 h-12 transition-transform transform hover:scale-110 z-50"
         />
       </div>
     </Router>

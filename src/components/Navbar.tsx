@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, Users, Briefcase, Calendar, Menu, X } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -11,7 +11,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   const navItems = [
     { title: 'HOME', icon: Home, href: '/' },
-    { title: 'ABOUT US', icon: Users, href: '#about' },
+    { title: 'ABOUT US', icon: Users, href: '/#about' },
   ];
 
   const serviceItem = {
@@ -27,25 +27,28 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   };
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
-
-    if (href === '/') {
-      navigate(href)
-      window.location.reload();
-    } else if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+    if(location.pathname == '/' && href== '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (href.startsWith('/#')) {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector(href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     } else {
       navigate(href);
     }
   };
-
+  
   return (
-    <nav className="fixed top-0 w-full bg-pakistan-green shadow-md z-50 backdrop-blur-sm" role="navigation">
+    <nav className="fixed top-0 w-full bg-pakistan-green shadow-md z-50 backdrop-blur-xl" role="navigation">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <motion.div
