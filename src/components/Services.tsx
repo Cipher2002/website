@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Home, Building2, Building, Search, Users, MessageSquare, Compass, Search as SearchIcon, ClipboardCheck, PhoneCall } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import {ServiceCard } from './ServiceCard'
 
 const Services = () => {
 
@@ -10,28 +11,24 @@ const Services = () => {
       title: 'Residential Vastu',
       icon: Home,
       image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80',
-      description: 'Transform your home into a sanctuary of peace and positivity. Our residential Vastu consultations focus on optimizing the layout and design of your living spaces to enhance family harmony, health, and overall happiness.',
     },
     {
       id: 2,
       title: 'Commercial Vastu',
       icon: Building2,
       image: 'https://images.unsplash.com/photo-1582037928769-181f2644ecb7?auto=format&fit=crop&q=80',
-      description: 'Ensure your retail space attracts customers and encourages sales. We offer Vastu consultations specifically for shops and delivery areas, guiding you in creating an inviting and energetically balanced environment that promotes business growth.',
     },
     {
       id: 3,
       title: 'Office Premises Vastu',
       icon: Building,
       image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80',
-      description: 'Enhance productivity and collaboration in your workplace. Our office Vastu services cater to private businesses, semi-government, and government offices, helping you create a conducive atmosphere that fosters success and teamwork.',
     },
     {
       id: 4,
       title: 'New Property Vastu',
       icon: Search,
       image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80',
-      description: 'Thinking of purchasing a new property? Our pre-purchase Vastu consultation helps you assess potential properties to ensure they align with Vastu principles, allowing you to make informed decisions that support your goals and well-being.',
     },
   ];
 
@@ -107,8 +104,11 @@ const Services = () => {
     }
   ];
 
-  const handleServiceClick = (service: any) => {
-    localStorage.setItem('selectedServiceType', JSON.stringify(service));
+  const navigate = useNavigate();
+
+  const handleServiceSelect = (id: number) => {
+    localStorage.setItem('selectedServiceType', JSON.stringify(id));
+    navigate('/booking');
   };
 
   return (
@@ -128,36 +128,11 @@ const Services = () => {
 
         <div className="grid md:grid-cols-2 gap-8 mb-32">
           {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-earth-yellow rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300-"
-            >
-              <div className="relative h-64">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-cornsilk opacity-10"></div>
-                <div className="absolute top-4 left-4 bg-cornsilk p-3 rounded-full shadow-lg">
-                  <service.icon className="w-6 h-6 text-dark-moss-green" />
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-cornsilk mb-4">{service.title}</h3>
-                <p className="text-cornsilk mb-6">{service.description}</p>
-                <Link
-                  to="/booking"
-                  onClick={() => handleServiceClick(service.id)}
-                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-dark-moss-green bg-cornsilk hover:bg-tigers-eye hover:text-cornsilk transition-colors"
-                >
-                  Book Consultation
-                </Link>
-              </div>
-            </motion.div>
+            <ServiceCard
+              key={service.id}
+              {...service}
+              onSelect={handleServiceSelect}
+            />
           ))}
         </div>
 
