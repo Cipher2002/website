@@ -19,7 +19,7 @@ function App() {
   return (
     <Router basename="/website/">
       <ScrollToTop />
-      <div className="max-w-screen min-h-screen bg-cornsilk">
+      <div className="max-w-screen min-h-screen bg-gradient-to-b from-cornsilk to-white">
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
         <Routes>
           <Route path="/" element={

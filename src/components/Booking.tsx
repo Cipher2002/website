@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, startOfWeek, endOfWeek } from 'date-fns';
-import { Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import BookingHero from './BookngHero';
+import ServiceTypes from './AppointmentType'
 
 // Define appointment types with their duration and selected state
 const appointmentTypes = [
-  { id: '1', title: 'Residential Vastu', duration: '1 hour' },
-  { id: '2', title: 'Commercial Vastu', duration: '1 hour' },
-  { id: '3', title: 'Office Premises Vastu', duration: '1 hour' },
-  { id: '4', title: 'New Property Vastu', duration: '1 hour' },
+  { id: '1', title: 'Residential Vastu', duration: '1 hour', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80', description: 'Transform your home into a sanctuary of peace and positivity' },
+  { id: '2', title: 'Commercial Vastu', duration: '1 hour', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80', description: 'Optimize your business space for success and prosperity' },
+  { id: '3', title: 'Office Premises Vastu', duration: '1 hour', image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80', description: 'Create a productive and harmonious workplace' },
+  { id: '4', title: 'New Property Vastu', duration: '1 hour', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80', description: 'Make informed decisions for your new property investment' },
 ];
 
 // Define available time slots for appointments
@@ -74,12 +76,45 @@ const Booking = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+
+      <BookingHero />
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-cornsilk p-8"
+        className="p-8"
       >
-        <h1 className="text-3xl font-bold text-pakistan-green mb-8 text-center">Book an appointment</h1>
+
+        {/* Appointment Types */}
+        {/* <div className="mb-8">
+          <h2 className="text-xl font-bold mb-4 text-pakistan-green">Select appointment type</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {appointmentTypes.map((type) => (
+              <motion.button
+                key={type.id}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setSelectedType(type)}
+                className={`p-4 rounded-xl text-left transition-colors ${
+                  selectedType.id === type.id
+                    ? 'bg-tigers-eye text-cornsilk'
+                    : 'bg-gray-50 text-pakistan-green hover:bg-earth-yellow hover:text-cornsilk'
+                }`}
+              >
+                <div className="font-semibold">{type.title}</div>
+                <div className="flex items-center text-sm mt-1">
+                  <Clock className="w-4 h-4 mr-1" />
+                  {type.duration}
+                </div>
+              </motion.button>
+            ))}
+          </div>
+        </div> */}
+        <ServiceTypes
+            services={appointmentTypes}
+            selectedService={selectedType}
+            onServiceSelect={setSelectedType}
+          />
 
         {/* Contact Form */}
         <motion.form
@@ -130,32 +165,6 @@ const Booking = () => {
             </div>
           </div>
         </motion.form>
-
-        {/* Appointment Types */}
-        <div className="mb-8">
-          <h2 className="text-xl font-bold mb-4 text-pakistan-green">Select appointment type</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {appointmentTypes.map((type) => (
-              <motion.button
-                key={type.id}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setSelectedType(type)}
-                className={`p-4 rounded-xl text-left transition-colors ${
-                  selectedType.id === type.id
-                    ? 'bg-tigers-eye text-cornsilk'
-                    : 'bg-gray-50 text-pakistan-green hover:bg-earth-yellow hover:text-cornsilk'
-                }`}
-              >
-                <div className="font-semibold">{type.title}</div>
-                <div className="flex items-center text-sm mt-1">
-                  <Clock className="w-4 h-4 mr-1" />
-                  {type.duration}
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </div>
 
         {/* Centering the Calendar and Time Slots */}
         <div className="flex flex-col lg:flex-row justify-center items-start gap-8 p-8 rounded-xl max-w-7xl mx-auto user-select-none">
